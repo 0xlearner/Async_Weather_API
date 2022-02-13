@@ -60,8 +60,8 @@ async def route_optima(city: str, state: str, country: str, units=None) -> dict:
     # If cache is found then serves the data from cache
     if in_cache:
         data = json.loads(in_cache.decode("utf-8"))
-        print(data)
-        print(type(data))
+        # print(data)
+        # print(type(data))
         data_dict = json.loads(data)
         # print(data_dict)
         # print(type(data_dict))

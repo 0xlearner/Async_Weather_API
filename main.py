@@ -19,7 +19,7 @@ api = fastapi.FastAPI()
 async def start_app():
     # create db tables on initializing
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
+        # await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
 

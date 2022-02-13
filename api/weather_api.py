@@ -13,9 +13,13 @@ router = fastapi.APIRouter()
 
 
 @router.get("/api/weather/{city}")
-async def weather(loc: Location = Depends(), units: Optional[str] = "metric"):
+async def weather(
+    loc: Location = Depends(),
+    units: Optional[str] = "metric",
+    data: Report_DAL = Depends(get_report_db),
+):
     try:
-        return await route_optima(loc.city, loc.state, loc.country, units)
+        return await data.get_weather(loc, units)
     except ValidationError as ve:
         return fastapi.Response(content=ve.error_msg, status_code=ve.status_code)
     except Exception as e:

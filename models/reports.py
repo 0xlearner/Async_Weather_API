@@ -17,6 +17,7 @@ class ReportSubmittal(BaseModel):
 
 class Reports(ReportSubmittal):
     id: UUID
+    temp: float
     created_date: Optional[datetime.datetime]
 
     class Config:
