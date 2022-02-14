@@ -18,6 +18,8 @@ async def weather(
     units: Optional[str] = "metric",
     data: Report_DAL = Depends(get_report_db),
 ):
+    d = await data.weather_by_city(city="Santo Domingo")
+    print(d)
     try:
         return await data.get_weather(loc, units)
     except ValidationError as ve:

@@ -16,4 +16,3 @@ class Weather(Base):
     units = Column(String, nullable=True, default="metric")
     temperature = Column(Float, nullable=False)
     created_date = Column(DateTime, default=datetime.datetime.utcnow)
-    report = relationship("Report", backref="weather")

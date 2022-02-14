@@ -54,8 +54,22 @@ class Report_DAL:
 
         return weather
 
+    async def weather_by_city(self, city):
+        location = await self.db_session.execute(
+            select(Weather).filter(Weather.city == city)
+        )
+        weather = location.fetchone()
+        # (<db.models.weather.Weather object at 0x7f410632db20>,)
+        for w in weather:
+            return w.temperature
+
     async def create_report(self, report_submittal: ReportSubmittal) -> Report:
-        report = Report(**report_submittal.dict(), created_date=datetime.datetime.now())
+        forecast = await self.weather_by_city(report_submittal.location)
+        report = Report(
+            **report_submittal.dict(),
+            created_date=datetime.datetime.now(),
+            temp=forecast
+        )
         self.db_session.add(report)
         await self.db_session.flush()
         return report
